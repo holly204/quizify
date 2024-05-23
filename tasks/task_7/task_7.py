@@ -3,6 +3,8 @@ from langchain_google_vertexai import VertexAI
 from langchain_core.prompts import PromptTemplate
 import os
 import sys
+from vertexai.preview import generative_models
+from vertexai.preview.generative_models import GenerativeModel, Part, Content, ChatSession
 sys.path.append(os.path.abspath('../../'))
 
 class QuizGenerator:
@@ -70,9 +72,14 @@ class QuizGenerator:
 
         Note: Ensure you have appropriate access or API keys if required by the model or platform.
         """
+        # Initialize Vertex AI with your project
+        project_ID  = "gemini-quizify-423622"
         self.llm = VertexAI(
             ############# YOUR CODE HERE ############
+            project=project_ID
         )
+        config = generative_models.GenerationConfig(temperature=0.4)
+
         
     def generate_question_with_vectorstore(self):
         """
@@ -141,7 +148,7 @@ if __name__ == "__main__":
     
     embed_config = {
         "model_name": "textembedding-gecko@003",
-        "project": "YOUR-PROJECT-ID-HERE",
+        "project": "gemini-quizify-423622",
         "location": "us-central1"
     }
     
